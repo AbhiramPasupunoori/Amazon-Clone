@@ -8,15 +8,19 @@ function ProductCard({ product }) {
             style={{
                 border: "1px solid #ddd",
                 padding: "15px",
-                margin: "10px",
-                width: "250px"
+                borderRadius: "10px"
             }}
         >
 
             <img
-                src={`http://localhost:3000/images/${product.image}`}
+                src={product.image}
                 alt={product.name}
                 width="200"
+                style={{
+                    width: "100%",
+                    height: "200px",
+                    objectFit: "contain"
+                }}
             />
 
             <h3>{product.name}</h3>
