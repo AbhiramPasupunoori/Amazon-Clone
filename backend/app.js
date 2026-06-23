@@ -17,6 +17,7 @@ const wishlistRoutes = require("./routes/wishlist");
 const orderRoutes = require("./routes/orders");
 const paymentRoutes = require("./routes/payments");
 const adminRoutes = require("./routes/admin");
+const path = require("path");
 
 app.use("/api/auth", (req, res, next) => {
     console.log(req.method, req.url);
@@ -28,6 +29,12 @@ app.use("/api/wishlist", wishlistRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/admin", adminRoutes);
+app.use(
+    "/images",
+    express.static(
+        path.join(__dirname, "images")
+    )
+);
 
 app.get("/", (req, res) => {
     console.log("Home route called");
