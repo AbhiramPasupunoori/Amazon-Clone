@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const db = require("../config/db");
+const db = require("../backend/config/db");
 
-const authMiddleware = require("../middleware/authMiddleware");
-const adminMiddleware = require("../middleware/adminMiddleware");
+const authMiddleware = require("../backend/middleware/authMiddleware");
+const adminMiddleware = require("../backend/middleware/adminMiddleware");
 
 router.get(
     "/users",
