@@ -149,4 +149,98 @@ router.get(
     }
 );
 
+/*
+=================================
+PAYMENT SUCCESS
+=================================
+*/
+
+router.put(
+    "/success/:id",
+    authMiddleware,
+    (req, res) => {
+
+        const paymentId = req.params.id;
+
+        db.query(
+            `
+            UPDATE payments
+            SET payment_status='Paid'
+            WHERE id=?
+            `,
+            [paymentId],
+            (err) => {
+
+                if (err) {
+                    return res.status(500).json(err);
+                }
+
+                db.query(
+                    `
+                    UPDATE orders
+
+                    SET status='Processing'
+
+                    WHERE id=(
+                        SELECT order_id
+                        FROM payments
+                        WHERE id=?
+                    )
+                    `,
+                    [paymentId],
+                    (err) => {
+
+                        if (err) {
+                            return res.status(500).json(err);
+                        }
+
+                        res.json({
+                            message: "Payment marked as successful"
+                        });
+
+                    }
+                );
+
+            }
+        );
+
+    }
+);
+
+/*
+=================================
+PAYMENT FAILURE
+=================================
+*/
+
+router.put(
+    "/failure/:id",
+    authMiddleware,
+    (req, res) => {
+
+        const paymentId = req.params.id;
+
+        db.query(
+            `
+            UPDATE payments
+            SET payment_status='Failed'
+            WHERE id=?
+            `,
+            [paymentId],
+            (err) => {
+
+                if (err) {
+                    return res.status(500).json(err);
+                }
+
+                res.json({
+                    message: "Payment marked as failed"
+                });
+
+            }
+        );
+
+    }
+);
+
 module.exports = router;

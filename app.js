@@ -16,6 +16,7 @@ const cartRoutes = require("./routes/cart");
 const wishlistRoutes = require("./routes/wishlist");
 const orderRoutes = require("./routes/orders");
 const paymentRoutes = require("./routes/payments");
+const adminRoutes = require("./routes/admin");
 
 app.use("/api/auth", (req, res, next) => {
     console.log(req.method, req.url);
@@ -26,6 +27,7 @@ app.use("/api/cart", cartRoutes);
 app.use("/api/wishlist", wishlistRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/payments", paymentRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.get("/", (req, res) => {
     console.log("Home route called");
