@@ -4,9 +4,9 @@ const router = express.Router();
 
 const jwt = require("jsonwebtoken");
 
-const db = require("../backend/config/db");
+const db = require("../config/db");
 
-const authMiddleware = require("../backend/middleware/authMiddleware");
+const authMiddleware = require("../middleware/authMiddleware");
 
 // Registration Route
 router.get("/register", (req, res) => {
